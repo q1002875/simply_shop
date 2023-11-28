@@ -1,6 +1,10 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/pages/welcome/bloc/welcome.states.dart';
+import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
+import 'package:simply_shop/pages/welcome/bloc/welcome_events.dart';
 
 Widget _page(int index, BuildContext context, String buttonName, String title,
     String subTitle, String imagePath) {
@@ -36,17 +40,16 @@ Widget _page(int index, BuildContext context, String buttonName, String title,
         width: 325.w,
         height: 50.h,
         decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.w),
-          ),
-
-          // boxShadow: BoxShadow(
-          //     spreadRadius: 1,
-          //     blurRadius: 2,
-          //     offset: const Offset(0, 1),
-          //     color: Colors.grey.withOpacity(0.5))
-        ),
+            color: Colors.blue,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.w),
+            ),
+            // boxShadow: BoxShadow(eeeeeerereg
+            //     spreadRadius: 1,
+            //     blurRadius: 2,
+            //     offset: const Offset(0, 1),
+            //     color: Colors.grey.withOpacity(0.5))
+            ),
         child: Center(
           child: Text(
             buttonName,
@@ -73,55 +76,63 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 34.h),
-      child: Scaffold(
-        body: SizedBox(
-          width: 375.w,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              PageView(
-                children: [
-                  _page(
-                      1,
-                      context,
-                      "next",
-                      "First see Learing",
-                      "Forget about a for of paper all knowldget in on learning",
-                      "imagePath"),
-                  _page(
-                      1,
-                      context,
-                      "next",
-                      "Connext With Everyone",
-                      "Always keep in touch with your tutor & friend. Let's get connected",
-                      "imagePath"),
-                  _page(
-                      1,
-                      context,
-                      "get started",
-                      "Always fascinated Learning",
-                      "Anywhere anytime. The time is at our discrtion",
-                      "imagePath"),
-                ],
-              ),
-              Positioned(
-                  bottom: 100.h,
-                  child: DotsIndicator(
-                    dotsCount: 3,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    decorator: DotsDecorator(
-                        color: Colors.grey,
-                        activeColor: Colors.blue,
-                        size: const Size.square(8.8),
-                        activeSize: const Size(10.0, 8.0),
-                        activeShape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
-                  ))
-            ],
-          ),
-        ),
-      ),
+      child: Scaffold(body: BlocBuilder<welcomeBloc, WelcomeState>(
+        builder: (context, state) {
+          return Container(
+            margin: EdgeInsets.only(top: 34.h),
+            width: 375.w,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                PageView(
+                  onPageChanged: (index) {
+                    state.page = index;
+                    BlocProvider.of<welcomeBloc>(context).add(WelcomeEvent());
+                    print("index value is ${index}");
+                  },
+                  children: [
+                    _page(
+                        1,
+                        context,
+                        "next",
+                        "First see Learing",
+                        "Forget about a for of paper all knowldget in on learning",
+                        "imagePath"),
+                    _page(
+                        1,
+                        context,
+                        "next",
+                        "Connext With Everyone",
+                        "Always keep in touch with your tutor & friend. Let's get connected",
+                        "imagePath"),
+                    _page(
+                        1,
+                        context,
+                        "get started",
+                        "Always fascinated Learning",
+                        "Anywhere anytime. The time is at our discrtion",
+                        "imagePath"),
+                  ],
+                ),
+                Positioned(
+                    bottom: 100.h,
+                    child: DotsIndicator(
+                      position: state.page,
+                      dotsCount: 3,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      decorator: DotsDecorator(
+                          color: Colors.grey,
+                          activeColor: Colors.blue,
+                          size: const Size.square(8.8),
+                          activeSize: const Size(10.0, 8.0),
+                          activeShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    ))
+              ],
+            ),
+          );
+        },
+      )),
     );
   }
 }
