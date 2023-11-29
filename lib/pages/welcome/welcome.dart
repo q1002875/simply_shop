@@ -13,7 +13,10 @@ Widget _page(int index, BuildContext context, String buttonName, String title,
       SizedBox(
         width: 345.w,
         height: 345.w,
-        child: const Text('Image one'),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.fill,
+        ),
       ),
       Container(
         child: Text(
@@ -40,16 +43,16 @@ Widget _page(int index, BuildContext context, String buttonName, String title,
         width: 325.w,
         height: 50.h,
         decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.w),
-            ),
-            // boxShadow: BoxShadow(eeeeeerereg
-            //     spreadRadius: 1,
-            //     blurRadius: 2,
-            //     offset: const Offset(0, 1),
-            //     color: Colors.grey.withOpacity(0.5))
-            ),
+          color: Colors.blue,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.w),
+          ),
+          // boxShadow: BoxShadow(eeeeeerereg
+          //     spreadRadius: 1,
+          //     blurRadius: 2,
+          //     offset: const Offset(0, 1),
+          //     color: Colors.grey.withOpacity(0.5))
+        ),
         child: Center(
           child: Text(
             buttonName,
@@ -88,7 +91,7 @@ class _WelcomeState extends State<Welcome> {
                   onPageChanged: (index) {
                     state.page = index;
                     BlocProvider.of<welcomeBloc>(context).add(WelcomeEvent());
-                    print("index value is ${index}");
+                    print("index value is $index");
                   },
                   children: [
                     _page(
@@ -97,21 +100,21 @@ class _WelcomeState extends State<Welcome> {
                         "next",
                         "First see Learing",
                         "Forget about a for of paper all knowldget in on learning",
-                        "imagePath"),
+                        "assets/images/reading.png"),
                     _page(
                         1,
                         context,
                         "next",
                         "Connext With Everyone",
                         "Always keep in touch with your tutor & friend. Let's get connected",
-                        "imagePath"),
+                        "assets/images/boy.png"),
                     _page(
                         1,
                         context,
                         "get started",
                         "Always fascinated Learning",
                         "Anywhere anytime. The time is at our discrtion",
-                        "imagePath"),
+                        "assets/images/man.png"),
                   ],
                 ),
                 Positioned(
