@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/pages/sign_in.dart/sign_in.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/welcome.dart';
 
@@ -14,13 +15,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => welcomeBloc(),
-      child: ScreenUtilInit(
-        builder: (context, child) => const MaterialApp(
-            debugShowCheckedModeBanner: false, home: Welcome()),
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          //多條provider
+          BlocProvider(lazy: false, create: (context) => welcomeBloc())
+        ],
+        child: ScreenUtilInit(
+            builder: (context, child) => MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                      appBarTheme: const AppBarTheme(
+                          elevation: 0, backgroundColor: Colors.white)),
+                  home: const Welcome(),
+                  routes: {"signIn": (context) => const SignIn()},
+                )));
   }
 }
 

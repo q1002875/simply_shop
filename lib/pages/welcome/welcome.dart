@@ -6,67 +6,6 @@ import 'package:simply_shop/pages/welcome/bloc/welcome.states.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_events.dart';
 
-Widget _page(int index, BuildContext context, String buttonName, String title,
-    String subTitle, String imagePath) {
-  return Column(
-    children: [
-      SizedBox(
-        width: 345.w,
-        height: 345.w,
-        child: Image.asset(
-          imagePath,
-          fit: BoxFit.fill,
-        ),
-      ),
-      Container(
-        child: Text(
-          title,
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 24.sp,
-              fontWeight: FontWeight.normal),
-        ),
-      ),
-      Container(
-        width: 375.w,
-        padding: EdgeInsets.only(left: 25.w, right: 30.w),
-        child: Text(
-          subTitle,
-          style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.normal),
-        ),
-      ),
-      Container(
-        margin: EdgeInsets.only(top: 100.h, left: 25.w, right: 25.w),
-        width: 325.w,
-        height: 50.h,
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.w),
-          ),
-          // boxShadow: BoxShadow(eeeeeerereg
-          //     spreadRadius: 1,
-          //     blurRadius: 2,
-          //     offset: const Offset(0, 1),
-          //     color: Colors.grey.withOpacity(0.5))
-        ),
-        child: Center(
-          child: Text(
-            buttonName,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.normal),
-          ),
-        ),
-      )
-    ],
-  );
-}
-
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
 
@@ -75,6 +14,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  PageController pagecontroller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,6 +28,7 @@ class _WelcomeState extends State<Welcome> {
               alignment: Alignment.topCenter,
               children: [
                 PageView(
+                  controller: pagecontroller,
                   onPageChanged: (index) {
                     state.page = index;
                     BlocProvider.of<welcomeBloc>(context).add(WelcomeEvent());
@@ -95,7 +36,7 @@ class _WelcomeState extends State<Welcome> {
                   },
                   children: [
                     _page(
-                        1,
+                        0,
                         context,
                         "next",
                         "First see Learing",
@@ -109,7 +50,7 @@ class _WelcomeState extends State<Welcome> {
                         "Always keep in touch with your tutor & friend. Let's get connected",
                         "assets/images/boy.png"),
                     _page(
-                        1,
+                        2,
                         context,
                         "get started",
                         "Always fascinated Learning",
@@ -118,7 +59,7 @@ class _WelcomeState extends State<Welcome> {
                   ],
                 ),
                 Positioned(
-                    bottom: 100.h,
+                    bottom: 130.h,
                     child: DotsIndicator(
                       position: state.page,
                       dotsCount: 3,
@@ -126,8 +67,8 @@ class _WelcomeState extends State<Welcome> {
                       decorator: DotsDecorator(
                           color: Colors.grey,
                           activeColor: Colors.blue,
-                          size: const Size.square(8.8),
-                          activeSize: const Size(10.0, 8.0),
+                          size: const Size.square(8.0),
+                          activeSize: const Size(8.8, 8.8),
                           activeShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ))
@@ -136,6 +77,85 @@ class _WelcomeState extends State<Welcome> {
           );
         },
       )),
+    );
+  }
+
+  Widget _page(int index, BuildContext context, String buttonName, String title,
+      String subTitle, String imagePath) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 345.w,
+          height: 345.w,
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(
+          child: Text(
+            title,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        Container(
+          width: 375.w,
+          padding: EdgeInsets.only(left: 30.w, right: 30.w),
+          child: Text(
+            subTitle,
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.5),
+                fontSize: 14.sp,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            pagecontroller.animateToPage(index + 1,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn);
+            debugPrint(" here$index");
+            if (index == 2) {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("signIn", (route) => false);
+            }
+
+            // if (index < 3) {
+            // } else {
+            //   Navigator.of(context)
+            //       .pushNamedAndRemoveUntil("signIn", (route) => false);
+            // }
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 100.h, left: 25.w, right: 25.w),
+            width: 325.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.w),
+              ),
+              // boxShadow: BoxShadow(eeeeeerereg
+              //     spreadRadius: 1,
+              //     blurRadius: 2,
+              //     offset: const Offset(0, 1),
+              //     color: Colors.grey.withOpacity(0.5))
+            ),
+            child: Center(
+              child: Text(
+                buttonName,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
