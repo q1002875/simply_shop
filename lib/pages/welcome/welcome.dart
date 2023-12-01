@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/common/value/colors.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome.states.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_events.dart';
@@ -59,16 +60,16 @@ class _WelcomeState extends State<Welcome> {
                   ],
                 ),
                 Positioned(
-                    bottom: 130.h,
+                    bottom: 190.w,
                     child: DotsIndicator(
                       position: state.page,
                       dotsCount: 3,
                       mainAxisAlignment: MainAxisAlignment.center,
                       decorator: DotsDecorator(
                           color: Colors.grey,
-                          activeColor: Colors.blue,
+                          activeColor: AppColors.primaryElement,
                           size: const Size.square(8.0),
-                          activeSize: const Size(8.8, 8.8),
+                          activeSize: const Size(14.8, 8.8),
                           activeShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ))
@@ -85,8 +86,8 @@ class _WelcomeState extends State<Welcome> {
     return Column(
       children: [
         SizedBox(
-          width: 345.w,
-          height: 345.w,
+          width: 330.w,
+          height: 330.w,
           child: Image.asset(
             imagePath,
             fit: BoxFit.cover,
@@ -96,7 +97,7 @@ class _WelcomeState extends State<Welcome> {
           child: Text(
             title,
             style: TextStyle(
-                color: Colors.black,
+                color: AppColors.primaryText,
                 fontSize: 24.sp,
                 fontWeight: FontWeight.normal),
           ),
@@ -107,7 +108,7 @@ class _WelcomeState extends State<Welcome> {
           child: Text(
             subTitle,
             style: TextStyle(
-                color: Colors.black.withOpacity(0.5),
+                color: AppColors.primarySecondaryElementText,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.normal),
           ),
@@ -134,7 +135,7 @@ class _WelcomeState extends State<Welcome> {
             width: 325.w,
             height: 50.h,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.primaryElement,
               borderRadius: BorderRadius.all(
                 Radius.circular(15.w),
               ),

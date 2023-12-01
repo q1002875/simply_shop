@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
 import 'package:simply_shop/pages/sign_in.dart/sign_in.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/welcome.dart';
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           //多條provider
-          BlocProvider(lazy: false, create: (context) => welcomeBloc())
+          BlocProvider(lazy: false, create: (context) => welcomeBloc()),
+          BlocProvider(
+            create: (context) => SignInBloc(),
+          )
         ],
         child: ScreenUtilInit(
             builder: (context, child) => MaterialApp(
