@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/common/value/colors.dart';
 import 'package:simply_shop/pages/bloc_providers.dart';
-import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
+import 'package:simply_shop/pages/register/register.dart';
 import 'package:simply_shop/pages/sign_in.dart/sign_in.dart';
-import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/welcome.dart';
 
 void main() {
@@ -18,15 +18,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers:AppBlocProviders.allBlocProviders,
+        providers: AppBlocProviders.allBlocProviders,
         child: ScreenUtilInit(
             builder: (context, child) => MaterialApp(
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
                       appBarTheme: const AppBarTheme(
-                          elevation: 0, backgroundColor: Colors.white)),
+                          iconTheme:
+                              IconThemeData(color: AppColors.primaryText),
+                          elevation: 0,
+                          backgroundColor: Colors.white)),
                   home: const Welcome(),
-                  routes: {"signIn": (context) => const SignIn()},
+                  routes: {
+                    "signIn": (context) => const SignIn(),
+                    "register": (context) => const Register(),
+                  },
                 )));
   }
 }

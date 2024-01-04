@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
         child: SafeArea(
             child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: buildAppBar(),
+          appBar: buildAppBar('Log in'),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,8 +61,9 @@ class _SignInState extends State<SignIn> {
                   debugPrint('login button');
                   SignInController(context: context).handleSigIn('email');
                 }),
-                buildLogInAdnRegButtom("Register", "register", () {
+                buildLogInAdnRegButtom("Sgin up", "register", () {
                   debugPrint('Register button');
+                  Navigator.of(context).pushNamed("register");
                   // SignInController(context: context).handleSigIn('register');
                 })
               ],

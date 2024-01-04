@@ -7,6 +7,7 @@ import 'package:simply_shop/pages/welcome/bloc/welcome.states.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_events.dart';
 
+/////jeffxu
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
 
@@ -60,7 +61,7 @@ class _WelcomeState extends State<Welcome> {
                   ],
                 ),
                 Positioned(
-                    bottom: 190.w,
+                    bottom: 130.w,
                     child: DotsIndicator(
                       position: state.page,
                       dotsCount: 3,
@@ -132,7 +133,7 @@ class _WelcomeState extends State<Welcome> {
           },
           child: Container(
             margin: EdgeInsets.only(top: 100.h, left: 25.w, right: 25.w),
-            width: 325.w,
+            width: 370.w,
             height: 50.h,
             decoration: BoxDecoration(
               color: AppColors.primaryElement,
