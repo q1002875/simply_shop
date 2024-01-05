@@ -122,7 +122,7 @@ class _WelcomeState extends State<Welcome> {
             debugPrint(" here$index");
             if (index == 2) {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil("signIn", (route) => false);
+                  .pushNamedAndRemoveUntil("/sign_in", (route) => false);
             }
 
             // if (index < 3) {

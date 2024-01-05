@@ -1,13 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/common/routes/pages.dart';
 import 'package:simply_shop/common/value/colors.dart';
-import 'package:simply_shop/pages/bloc_providers.dart';
-import 'package:simply_shop/pages/register/register.dart';
-import 'package:simply_shop/pages/sign_in.dart/sign_in.dart';
 import 'package:simply_shop/pages/welcome/welcome.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: AppBlocProviders.allBlocProviders,
+        providers: [...AppPages.allBlocProviders(context)],
         child: ScreenUtilInit(
             builder: (context, child) => MaterialApp(
                   debugShowCheckedModeBanner: false,
@@ -29,10 +30,7 @@ class MyApp extends StatelessWidget {
                           elevation: 0,
                           backgroundColor: Colors.white)),
                   home: const Welcome(),
-                  routes: {
-                    "signIn": (context) => const SignIn(),
-                    "register": (context) => const Register(),
-                  },
+                  onGenerateRoute: AppPages.GenerateRouteSettings,
                 )));
   }
 }
