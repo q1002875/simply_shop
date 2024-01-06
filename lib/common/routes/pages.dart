@@ -5,6 +5,8 @@ import 'package:simply_shop/common/routes/names.dart';
 import 'package:simply_shop/global.dart';
 import 'package:simply_shop/pages/application/application_page.dart';
 import 'package:simply_shop/pages/application/bloc/app_blocs.dart';
+import 'package:simply_shop/pages/home/bloc/home_page_blocs.dart';
+import 'package:simply_shop/pages/home/home_page.dart';
 import 'package:simply_shop/pages/register/bloc/register_blocs.dart';
 import 'package:simply_shop/pages/register/register.dart';
 import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
@@ -30,6 +32,7 @@ class AppPages {
       var result = routes().where((element) => element.route == settings.name);
       if (result.isNotEmpty) {
         // print("valid route anme ${settings.name}");
+        //檢查是否第一次進入
         bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
 
         if (result.first.route == AppRoutes.INITIAL && deviceFirstOpen) {
@@ -73,7 +76,11 @@ class AppPages {
       PageEntity(
           route: AppRoutes.APPLICATION,
           page: const ApplicationPage(),
-          bloc: BlocProvider(create: (_) => AppBlocs()))
+          bloc: BlocProvider(create: (_) => AppBlocs())),
+      PageEntity(
+          route: AppRoutes.HOME_PAGE,
+          page: const HomePage(),
+          bloc: BlocProvider(create: (_) => HomePageBlocs()))
     ];
   }
 }
