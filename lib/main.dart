@@ -1,14 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/routes/pages.dart';
 import 'package:simply_shop/common/value/colors.dart';
-import 'package:simply_shop/pages/welcome/welcome.dart';
+import 'package:simply_shop/global.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Global.init();
   runApp(const MyApp());
 }
 
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
                               IconThemeData(color: AppColors.primaryText),
                           elevation: 0,
                           backgroundColor: Colors.white)),
-                  home: const Welcome(),
+                  // home: const Welcome(),
                   onGenerateRoute: AppPages.GenerateRouteSettings,
                 )));
   }

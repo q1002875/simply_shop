@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/value/colors.dart';
+import 'package:simply_shop/common/value/constatnt.dart';
+import 'package:simply_shop/global.dart';
 
 AppBar buildAppBar(String type) {
   return AppBar(
@@ -163,6 +165,9 @@ Widget _reusableIcons(String iconName) {
   return GestureDetector(
     onTap: () {
       debugPrint(iconName);
+
+      Global.storageService
+          .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRAT_TIME, false);
     },
     child: SizedBox(
         width: 40.w,

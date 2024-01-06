@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/value/colors.dart';
+import 'package:simply_shop/pages/home/home_page.dart';
 
 var bottomTabs = [
   BottomNavigationBarItem(
@@ -87,9 +88,7 @@ var bottomTabs = [
 
 Widget buildPage(int index) {
   List<Widget> widget = [
-    const Center(
-      child: Text('Home'),
-    ),
+    const HomePage(),
     const Center(
       child: Text('Search'),
     ),

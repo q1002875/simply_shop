@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/value/colors.dart';
+import 'package:simply_shop/common/value/constatnt.dart';
+import 'package:simply_shop/global.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome.states.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_events.dart';
@@ -121,6 +123,9 @@ class _WelcomeState extends State<Welcome> {
                 curve: Curves.easeIn);
             debugPrint(" here$index");
             if (index == 2) {
+              Global.storageService
+                  .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRAT_TIME, true);
+              print(Global.storageService.getDeviceFirstOpen());
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("/sign_in", (route) => false);
             }

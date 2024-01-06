@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simply_shop/common/value/constatnt.dart';
 import 'package:simply_shop/common/widgets/flutter_toast.dart';
+import 'package:simply_shop/global.dart';
 import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
 
 class SignInController {
@@ -43,6 +45,8 @@ class SignInController {
           var user = credential.user;
           if (user != null) {
             debugPrint('user exist');
+            Global.storageService
+                .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "123456");
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/application', (route) => false);
             //we got verified user from firebase
