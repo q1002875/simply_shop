@@ -7,6 +7,48 @@ import 'package:simply_shop/pages/home/bloc/home_page_blocs.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_events.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_states.dart';
 
+Widget courseGrid() {
+  return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.w),
+          image: const DecorationImage(
+              fit: BoxFit.fill, image: AssetImage("assets/icons/image_1.png"))),
+      child: Container(
+        padding: EdgeInsets.all(12.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Best course for IT  and Engineering",
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.left,
+              softWrap: false,
+              style: TextStyle(
+                  color: AppColors.primaryElementText,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11.sp),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              "Flutter best course ",
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.left,
+              softWrap: false,
+              style: TextStyle(
+                  color: AppColors.primaryFourElementText,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 8.sp),
+            )
+          ],
+        ),
+      ));
+}
+
 AppBar homeBuildAppBar() {
   return AppBar(
     title: Container(
@@ -56,9 +98,25 @@ Widget menuView() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            _reusbaleMenuText("Choose your course"),
-            _reusbaleMenuText("See all",
-                fontSize: 13, color: AppColors.primaryThreeElementText)
+            _reusableText("Choose your course"),
+            GestureDetector(
+              child: _reusableText("See all",
+                  fontSize: 13, color: AppColors.primaryThreeElementText),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 20.w),
+        child: Row(
+          children: [
+            _reusableMenuText("All"),
+            _reusableMenuText("Popular",
+                textColor: AppColors.primaryThreeElementText,
+                backgroundColor: Colors.white),
+            _reusableMenuText("Newest",
+                textColor: AppColors.primaryThreeElementText,
+                backgroundColor: Colors.white),
           ],
         ),
       )
@@ -140,7 +198,7 @@ Widget slidersView(BuildContext context, HomePageStates state) {
         height: 160.h,
         child: PageView(
           onPageChanged: (value) {
-            print(value.toString());
+            // print(value.toString());
             context.read<HomePageBlocs>().add(HomePageDots(value));
           },
           children: [
@@ -167,13 +225,31 @@ Widget slidersView(BuildContext context, HomePageStates state) {
   );
 }
 
-Widget _reusbaleMenuText(String text,
-    {Color color = AppColors.primaryText, int fontSize = 16}) {
+////for the menu botton reusbale text
+Widget _reusableMenuText(String menuText,
+    {Color textColor = AppColors.primaryElementText,
+    Color backgroundColor = AppColors.primaryElement}) {
+  return Container(
+    margin: EdgeInsets.only(right: 20.w),
+    padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h, top: 5.h),
+    decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(7.w),
+        border: Border.all(color: backgroundColor)),
+    child:
+        _reusableText(menuText, color: textColor, fontWight: FontWeight.normal),
+  );
+}
+
+Widget _reusableText(String text,
+    {Color color = AppColors.primaryText,
+    int fontSize = 16,
+    FontWeight fontWight = FontWeight.bold}) {
   return Container(
     child: Text(
       text,
-      style: TextStyle(
-          color: color, fontWeight: FontWeight.bold, fontSize: fontSize.sp),
+      style:
+          TextStyle(color: color, fontWeight: fontWight, fontSize: fontSize.sp),
     ),
   );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/value/colors.dart';
 import 'package:simply_shop/pages/home/home_page.dart';
+import 'package:simply_shop/pages/profile/profile_page.dart';
 
 var bottomTabs = [
   BottomNavigationBarItem(
@@ -98,9 +99,7 @@ Widget buildPage(int index) {
     const Center(
       child: Text('Chat'),
     ),
-    const Center(
-      child: Text('Profile'),
-    ),
+    const ProfilePage()
   ];
   return widget[index];
 }

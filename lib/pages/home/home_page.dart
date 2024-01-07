@@ -24,18 +24,39 @@ class _HomePageState extends State<HomePage> {
           return Container(
               // color: Colors.red,
               margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  homePageText("hello", color: AppColors.primaryText),
-                  homePageText("dbestech",
-                      color: AppColors.primaryText, top: 5),
-                  const SizedBox(
-                    height: 20,
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: homePageText("Hello", color: AppColors.primaryText),
                   ),
-                  searchView(),
-                  slidersView(context, state),
-                  menuView()
+                  SliverToBoxAdapter(
+                    child: homePageText("dbestech",
+                        color: AppColors.primaryText, top: 5),
+                  ),
+                  SliverPadding(padding: EdgeInsets.only(top: 20.h)),
+                  SliverToBoxAdapter(
+                    child: searchView(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: slidersView(context, state),
+                  ),
+                  SliverToBoxAdapter(child: menuView()),
+                  SliverPadding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 18.h, horizontal: 0.w),
+                    sliver: SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 15,
+                                crossAxisSpacing: 15,
+                                childAspectRatio: 1.6),
+                        delegate: SliverChildBuilderDelegate(childCount: 4,
+                            (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: () {}, child: courseGrid());
+                        })),
+                  ),
                 ],
               ));
         }));
