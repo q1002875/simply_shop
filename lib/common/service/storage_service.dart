@@ -20,7 +20,11 @@ class StorageService {
     return this;
   }
 
-//製作儲存方法
+  Future<bool> remove(String key) {
+    return _prefs.remove(key);
+  }
+
+  //製作儲存方法
   Future<bool> setBool(String key, bool value) async {
     return await _prefs.setBool(key, value);
   }

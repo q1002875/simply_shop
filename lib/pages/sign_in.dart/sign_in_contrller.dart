@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:simply_shop/common/apis/user_api.dart';
+import 'package:simply_shop/common/entities/entities.dart';
 import 'package:simply_shop/common/value/constatnt.dart';
 import 'package:simply_shop/common/widgets/flutter_toast.dart';
 import 'package:simply_shop/global.dart';
@@ -10,6 +13,14 @@ class SignInController {
   //先掛件context
   final BuildContext context;
   const SignInController({required this.context});
+
+  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+    EasyLoading.show(
+        indicator: const CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
+    var result = await UserAPI.login(params: loginRequestEntity);
+  }
 
   Future<void> handleSigIn(String type) async {
     //執行sing in bloc
@@ -45,6 +56,19 @@ class SignInController {
           var user = credential.user;
           if (user != null) {
             debugPrint('user exist');
+            String? displayName = user.displayName;
+            String? email = user.email;
+            String? id = user.uid;
+            String? photoUrl = user.photoURL;
+
+            LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+            loginRequestEntity.avatar = photoUrl;
+            loginRequestEntity.name = displayName;
+            loginRequestEntity.email = email;
+            loginRequestEntity.open_id = id;
+            loginRequestEntity.type = 1;
+
+            asyncPostAllData(loginRequestEntity);
             Global.storageService
                 .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "123456");
             Navigator.of(context)

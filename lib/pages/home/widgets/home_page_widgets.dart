@@ -202,7 +202,7 @@ Widget slidersView(BuildContext context, HomePageStates state) {
             context.read<HomePageBlocs>().add(HomePageDots(value));
           },
           children: [
-            _slidersContainer(),
+            _slidersContainer(path: "assets/icons/image(3).png"),
             _slidersContainer(path: "assets/icons/image_1.png"),
             _slidersContainer(path: "assets/icons/image_2.png"),
           ],

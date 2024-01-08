@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                     child: homePageText("Hello", color: AppColors.primaryText),
                   ),
                   SliverToBoxAdapter(
-                    child: homePageText("dbestech",
+                    child: homePageText("JeffXu",
                         color: AppColors.primaryText, top: 5),
                   ),
                   SliverPadding(padding: EdgeInsets.only(top: 20.h)),
@@ -54,7 +54,10 @@ class _HomePageState extends State<HomePage> {
                         delegate: SliverChildBuilderDelegate(childCount: 4,
                             (BuildContext context, int index) {
                           return GestureDetector(
-                              onTap: () {}, child: courseGrid());
+                              onTap: () {
+                                print("courseGrid$index");
+                              },
+                              child: courseGrid());
                         })),
                   ),
                 ],

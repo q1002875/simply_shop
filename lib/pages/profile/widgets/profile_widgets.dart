@@ -60,7 +60,7 @@ AppBar buildProfileAppBar() {
           SizedBox(
             width: 18.w,
             height: 12.h,
-            child: Image.asset("assets/icon/menu.png"),
+            child: Image.asset("assets/icons/menu.png"),
           ),
           Text(
             "Profile",
@@ -72,7 +72,7 @@ AppBar buildProfileAppBar() {
           SizedBox(
             width: 24.w,
             height: 24.h,
-            child: Image.asset("assets/icon/more-vertical.png"),
+            child: Image.asset("assets/icons/more-vertical.png"),
           ),
         ],
       ),
