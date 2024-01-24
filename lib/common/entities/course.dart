@@ -1,104 +1,3 @@
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-class CourseRequestEntity {
-  int? id;
-
-  CourseRequestEntity({
-    this.id,
-  });
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-  };
-}
-
-class SearchRequestEntity {
-  String? search;
-
-  SearchRequestEntity({
-    this.search,
-  });
-
-  Map<String, dynamic> toJson() => {
-    "search": search,
-  };
-}
-
-class CourseListResponseEntity {
-  int? code;
-  String? msg;
-  List<CourseItem>? data;
-
-  CourseListResponseEntity({
-    this.code,
-    this.msg,
-    this.data,
-  });
-
-  factory CourseListResponseEntity.fromJson(Map<String, dynamic> json) =>
-      CourseListResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: json["data"] == null ? [] : List<CourseItem>.from(json["data"].map((x) => CourseItem.fromJson(x))),
-      );
-}
-
-//api post response msg
-class CourseDetailResponseEntity {
-  int? code;
-  String? msg;
-  CourseItem? data;
-
-  CourseDetailResponseEntity({
-    this.code,
-    this.msg,
-    this.data,
-  });
-
-  factory CourseDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
-      CourseDetailResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: CourseItem.fromJson(json["data"]),
-      );
-}
-
-
-
-class AuthorRequestEntity {
-  String? token;
-
-  AuthorRequestEntity({
-    this.token,
-  });
-
-  Map<String, dynamic> toJson() => {
-    "token": token,
-  };
-}
-//api post response msg
-class AuthorResponseEntity {
-  int? code;
-  String? msg;
-  AuthorItem? data;
-
-  AuthorResponseEntity({
-    this.code,
-    this.msg,
-    this.data,
-  });
-
-  factory AuthorResponseEntity.fromJson(Map<String, dynamic> json) =>
-      AuthorResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: AuthorItem.fromJson(json["data"]),
-      );
-}
-
-
-
 // login result
 class AuthorItem {
   String? token;
@@ -123,8 +22,7 @@ class AuthorItem {
     this.online,
   });
 
-  factory AuthorItem.fromJson(Map<String, dynamic> json) =>
-      AuthorItem(
+  factory AuthorItem.fromJson(Map<String, dynamic> json) => AuthorItem(
         token: json["token"],
         name: json["name"],
         description: json["description"],
@@ -137,19 +35,69 @@ class AuthorItem {
       );
 
   Map<String, dynamic> toJson() => {
-    "token": token,
-    "name": name,
-    "description": description,
-    "avatar": avatar,
-    "job": job,
-    "follow": follow,
-    "score": score,
-    "download": download,
-    "online": online,
-  };
-
+        "token": token,
+        "name": name,
+        "description": description,
+        "avatar": avatar,
+        "job": job,
+        "follow": follow,
+        "score": score,
+        "download": download,
+        "online": online,
+      };
 }
 
+class AuthorRequestEntity {
+  String? token;
+
+  AuthorRequestEntity({
+    this.token,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "token": token,
+      };
+}
+
+//api post response msg
+class AuthorResponseEntity {
+  int? code;
+  String? msg;
+  AuthorItem? data;
+
+  AuthorResponseEntity({
+    this.code,
+    this.msg,
+    this.data,
+  });
+
+  factory AuthorResponseEntity.fromJson(Map<String, dynamic> json) =>
+      AuthorResponseEntity(
+        code: json["code"],
+        msg: json["msg"],
+        data: AuthorItem.fromJson(json["data"]),
+      );
+}
+
+//api post response msg
+class CourseDetailResponseEntity {
+  int? code;
+  String? msg;
+  CourseItem? data;
+
+  CourseDetailResponseEntity({
+    this.code,
+    this.msg,
+    this.data,
+  });
+
+  factory CourseDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
+      CourseDetailResponseEntity(
+        code: json["code"],
+        msg: json["msg"],
+        data: CourseItem.fromJson(json["data"]),
+      );
+}
 
 // login result
 class CourseItem {
@@ -183,14 +131,13 @@ class CourseItem {
     this.id,
   });
 
-  factory CourseItem.fromJson(Map<String, dynamic> json) =>
-      CourseItem(
+  factory CourseItem.fromJson(Map<String, dynamic> json) => CourseItem(
         user_token: json["user_token"],
         name: json["name"],
         description: json["description"],
         thumbnail: json["thumbnail"],
         video: json["video"],
-        price: json["price"],
+        price: json["price"].toString(),
         amount_total: json["amount_total"],
         lesson_num: json["lesson_num"],
         video_len: json["video_len"],
@@ -201,20 +148,64 @@ class CourseItem {
       );
 
   Map<String, dynamic> toJson() => {
-    "user_token": user_token,
-    "name": name,
-    "description": description,
-    "thumbnail": thumbnail,
-    "video": video,
-    "price": price,
-    "amount_total": amount_total,
-    "lesson_num": lesson_num,
-    "video_len": video_len,
-    "down_num": down_num,
-    "follow": follow,
-    "score": score,
-    "id": id,
-  };
-
+        "user_token": user_token,
+        "name": name,
+        "description": description,
+        "thumbnail": thumbnail,
+        "video": video,
+        "price": price,
+        "amount_total": amount_total,
+        "lesson_num": lesson_num,
+        "video_len": video_len,
+        "down_num": down_num,
+        "follow": follow,
+        "score": score,
+        "id": id,
+      };
 }
 
+class CourseListResponseEntity {
+  int? code;
+  String? msg;
+  List<CourseItem>? data;
+
+  CourseListResponseEntity({
+    this.code,
+    this.msg,
+    this.data,
+  });
+
+  factory CourseListResponseEntity.fromJson(Map<String, dynamic> json) =>
+      CourseListResponseEntity(
+        code: json["code"],
+        msg: json["msg"],
+        data: json["data"] == null
+            ? []
+            : List<CourseItem>.from(
+                json["data"].map((x) => CourseItem.fromJson(x))),
+      );
+}
+
+class CourseRequestEntity {
+  int? id;
+
+  CourseRequestEntity({
+    this.id,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+      };
+}
+
+class SearchRequestEntity {
+  String? search;
+
+  SearchRequestEntity({
+    this.search,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "search": search,
+      };
+}

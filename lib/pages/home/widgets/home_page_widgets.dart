@@ -2,17 +2,21 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simply_shop/common/entities/course.dart';
 import 'package:simply_shop/common/value/colors.dart';
+import 'package:simply_shop/common/value/constatnt.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_blocs.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_events.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_states.dart';
 
-Widget courseGrid() {
+Widget courseGrid(CourseItem item) {
   return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.w),
-          image: const DecorationImage(
-              fit: BoxFit.fill, image: AssetImage("assets/icons/image_1.png"))),
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image:
+                  NetworkImage(AppConstants.SERVER_UPLOADS + item.thumbnail!))),
       child: Container(
         padding: EdgeInsets.all(12.w),
         child: Column(
@@ -20,7 +24,7 @@ Widget courseGrid() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Best course for IT  and Engineering",
+              item.name ?? "",
               maxLines: 1,
               overflow: TextOverflow.fade,
               textAlign: TextAlign.left,
@@ -34,7 +38,7 @@ Widget courseGrid() {
               height: 5.h,
             ),
             Text(
-              "Flutter best course ",
+              item.description ?? "",
               maxLines: 1,
               overflow: TextOverflow.fade,
               textAlign: TextAlign.left,
@@ -49,7 +53,7 @@ Widget courseGrid() {
       ));
 }
 
-AppBar homeBuildAppBar() {
+AppBar homeBuildAppBar(String avatar) {
   return AppBar(
     title: Container(
       margin: EdgeInsets.only(left: 7.w, right: 7.w),
@@ -66,9 +70,8 @@ AppBar homeBuildAppBar() {
               child: Container(
                 width: 40.w,
                 height: 40.h,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/icons/person.png"))),
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: NetworkImage(avatar))),
               ),
             )
           ]),

@@ -1,8 +1,13 @@
+import 'package:simply_shop/common/entities/course.dart';
+
 class HomePageStates {
   final int index;
-  const HomePageStates({this.index = 0});
+  final List<CourseItem> courseItem;
+  const HomePageStates(
+      {this.index = 0, this.courseItem = const <CourseItem>[]});
 
-  HomePageStates copyWith({int? index}) {
-    return HomePageStates(index: index ?? this.index);
+  HomePageStates copyWith({int? index, List<CourseItem>? courseItem}) {
+    return HomePageStates(
+        index: index ?? this.index, courseItem: courseItem ?? this.courseItem);
   }
 }

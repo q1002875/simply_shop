@@ -5,6 +5,8 @@ import 'package:simply_shop/common/routes/names.dart';
 import 'package:simply_shop/global.dart';
 import 'package:simply_shop/pages/application/application_page.dart';
 import 'package:simply_shop/pages/application/bloc/app_blocs.dart';
+import 'package:simply_shop/pages/course/bloc/course_detail_blocs.dart';
+import 'package:simply_shop/pages/course/course_detail.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_blocs.dart';
 import 'package:simply_shop/pages/home/home_page.dart';
 import 'package:simply_shop/pages/profile/settings/bloc/settings_blocs.dart';
@@ -86,7 +88,11 @@ class AppPages {
       PageEntity(
           route: AppRoutes.SETTINGS,
           page: const SettingsPage(),
-          bloc: BlocProvider(create: (_) => SettingsBlocs()))
+          bloc: BlocProvider(create: (_) => SettingsBlocs())),
+      PageEntity(
+          route: AppRoutes.COURSE_DETAIL,
+          page: const CourseDetail(),
+          bloc: BlocProvider(create: (_) => CourseDetailBloc())),
     ];
   }
 }

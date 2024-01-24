@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simply_shop/common/entities/user.dart';
 import 'package:simply_shop/common/value/constatnt.dart';
 
 class StorageService {
@@ -14,7 +17,21 @@ class StorageService {
         : true;
   }
 
-//初始化
+  UserItem getUserProfile() {
+    var profileOffline =
+        _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY) ?? "";
+
+    if (profileOffline.isNotEmpty) {
+      return UserItem.fromJson(jsonDecode(profileOffline));
+    }
+    return UserItem();
+  }
+
+  getUserToken() {
+    return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? "";
+  }
+
+  //初始化
   Future<StorageService> init() async {
     _prefs = await SharedPreferences.getInstance();
     return this;

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:simply_shop/common/entities/entities.dart';
 import 'package:simply_shop/common/value/constatnt.dart';
 import 'package:simply_shop/common/widgets/flutter_toast.dart';
 import 'package:simply_shop/global.dart';
+import 'package:simply_shop/pages/home/home_controller.dart';
 import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
 
 class SignInController {
@@ -20,6 +23,25 @@ class SignInController {
         maskType: EasyLoadingMaskType.clear,
         dismissOnTap: true);
     var result = await UserAPI.login(params: loginRequestEntity);
+
+    if (result.code == 200) {
+      try {
+        Global.storageService.setString(
+            AppConstants.STORAGE_USER_PROFILE_KEY, jsonEncode(result.data!));
+        Global.storageService.setString(
+            AppConstants.STORAGE_USER_TOKEN_KEY, result.data!.access_token!);
+        EasyLoading.dismiss();
+        if (context.mounted) {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/application', (route) => false);
+        }
+      } catch (e) {
+        print('saving local storage error${e.toString()}');
+      }
+    } else {
+      EasyLoading.dismiss();
+      toastInfo(msg: "unknow error");
+    }
   }
 
   Future<void> handleSigIn(String type) async {
@@ -51,7 +73,7 @@ class SignInController {
           if (!credential.user!.emailVerified) {
             debugPrint('email not verified');
           } else {
-            // debugPrint('email not verified');
+            debugPrint('email not verified');
           }
           var user = credential.user;
           if (user != null) {
@@ -69,22 +91,23 @@ class SignInController {
             loginRequestEntity.type = 1;
 
             asyncPostAllData(loginRequestEntity);
-            Global.storageService
-                .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "123456");
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/application', (route) => false);
+            if (context.mounted) {
+              await HomeController(context: context).init();
+            }
             //we got verified user from firebase
           } else {
             debugPrint('no user');
             //we have error getting user from fire
           }
         } on FirebaseAuthException catch (e) {
+          // print('$e');
+          // toastInfo(msg: '$e');
           if (e.code == 'user-not-found') {
             debugPrint('No user found for that email');
-          } else if (e.code == 'worng-password') {
-            debugPrint('worng password provided for that user');
+          } else if (e.code == 'wrong-password') {
+            debugPrint('wrong password provided for that user');
           } else if (e.code == 'invalid-email') {
-            debugPrint('your email format is worng');
+            debugPrint('your email format is wrong');
           }
         }
       }
