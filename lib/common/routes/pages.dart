@@ -5,8 +5,9 @@ import 'package:simply_shop/common/routes/names.dart';
 import 'package:simply_shop/global.dart';
 import 'package:simply_shop/pages/application/application_page.dart';
 import 'package:simply_shop/pages/application/bloc/app_blocs.dart';
-import 'package:simply_shop/pages/course/bloc/course_detail_blocs.dart';
-import 'package:simply_shop/pages/course/course_detail.dart';
+import 'package:simply_shop/pages/course/course_detail/course_detail.dart';
+import 'package:simply_shop/pages/course/paywebview/bloc/payview_blocs.dart';
+import 'package:simply_shop/pages/course/paywebview/paywebview.dart';
 import 'package:simply_shop/pages/home/bloc/home_page_blocs.dart';
 import 'package:simply_shop/pages/home/home_page.dart';
 import 'package:simply_shop/pages/profile/settings/bloc/settings_blocs.dart';
@@ -17,6 +18,8 @@ import 'package:simply_shop/pages/sign_in.dart/bloc/sign_in_blocs.dart';
 import 'package:simply_shop/pages/sign_in.dart/sign_in.dart';
 import 'package:simply_shop/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:simply_shop/pages/welcome/welcome.dart';
+
+import '../../pages/course/course_detail/bloc/course_detail_blocs.dart';
 
 class AppPages {
   //return all providers
@@ -93,6 +96,10 @@ class AppPages {
           route: AppRoutes.COURSE_DETAIL,
           page: const CourseDetail(),
           bloc: BlocProvider(create: (_) => CourseDetailBloc())),
+      PageEntity(
+          route: AppRoutes.PAY_WEB_VIEW,
+          page: const PayWebview(),
+          bloc: BlocProvider(create: (_) => PayWebViewBlocs())),
     ];
   }
 }

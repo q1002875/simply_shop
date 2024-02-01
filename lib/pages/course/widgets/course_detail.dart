@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simply_shop/common/value/colors.dart';
+import 'package:simply_shop/common/value/constatnt.dart';
 import 'package:simply_shop/common/widgets/bese_test_widget.dart';
 import 'package:simply_shop/pages/sign_in.dart/widgets/sign_in_widget.dart';
 
-var imagesInfo = <String, String>{
-  "36 Hours Video": "video_detail.png",
-  "Total 30 Lessons": "file_detail.png",
-  "7 Downloadable Resources": "download_detail.png",
-  // "Love": "heart(1).png",
-  // "Reminders": "cube.png"
-};
+import '../course_detail/bloc/course_detail_states.dart';
 
 AppBar courseBuildAppBar() {
   return AppBar(
@@ -18,7 +13,15 @@ AppBar courseBuildAppBar() {
   );
 }
 
-Widget courseBuildListView(BuildContext context) {
+Widget courseBuildListView(BuildContext context, CourseDetailStates state) {
+  var imagesInfo = <String, String>{
+    "${state.courseItem!.video_len} Hours video": "video_detail.png",
+    "Total ${state.courseItem!.lesson_num.toString()}": "file_detail.png",
+    "${state.courseItem!.down_num.toString()} Downloadable_res":
+        "download_detail.png",
+    // "Love": "heart(1).png",
+    // "Reminders": "cube.png"
+  };
   return Column(
     children: [
       ...List.generate(
@@ -118,9 +121,8 @@ Widget courseSummary() {
   return baseReusableText("The Course Includes", fontSize: 14);
 }
 
-Widget descriptionText() {
-  return baseReusableText(
-      'Course Description Course Description Course DescriptionCourse DescriptionCourse DescriptionCourse DescriptionCourse DescriptionCourse Description',
+Widget descriptionText(String description) {
+  return baseReusableText(description,
       color: AppColors.primaryThreeElementText,
       fontWight: FontWeight.normal,
       fontSize: 11);
@@ -186,14 +188,14 @@ Widget menuView() {
   );
 }
 
-Widget thumbNail() {
+Widget thumbNail(String thumbnail) {
   return Container(
     width: 325.w,
     height: 200.h,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
         image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/icons/image_1.png'))),
+            image: NetworkImage('${AppConstants.SERVER_UPLOADS}$thumbnail'))),
   );
 }
 
